@@ -18,3 +18,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###other###
+/public/upload/*
+/migrations/*

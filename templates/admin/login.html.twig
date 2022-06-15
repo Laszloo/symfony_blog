@@ -1,0 +1,32 @@
+{% extends "/base.html.twig" %}
+{% block title %}Admin login{% endblock %}
+
+{% block body %}
+{% include "/frontend/inc/header.html.twig" with {"title": "Welcome", "information": "This is my blog!", "picture": "/frontend/assets/img/about-bg.jpg"}%}
+<div class="container mt-5 mb-5">
+    <div class="row">
+            <div class="col-12 text-center">
+                <p>Do you want an account? <a href="/create">Yes</a> </p>
+                <p>User: info@admin.hu | Password: admin</p>
+            </div>
+        <form action="/login" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="col-12 col-sm-6 offset-sm-3 mt-3"> <label for="username">Email:</label>
+                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+
+            <div class="col-12 col-sm-6 offset-sm-3 mt-3"> <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="_password" />
+            </div>
+
+            {% if error is defined and error is not empty %}
+            <div class="col-12 col-sm-6 offset-sm-3 mt-3 bg-warning text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <div class="col-12 col-sm-6 offset-sm-3 mt-3 text-center"><button class="btn btn-primary" type="submit">Login</button></div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}

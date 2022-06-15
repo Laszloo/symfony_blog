@@ -1,0 +1,85 @@
+{% extends "/base.html.twig" %}
+{% block title %}Administrator{% endblock %}
+
+{% block nav %}
+{% include "/admin/inc/nav.html.twig" %}
+{% endblock %}
+
+{% block body %}
+{% include "/frontend/inc/header.html.twig" with {"title": "Admin mode", "information": "You are an admin!", "picture": "/frontend/assets/img/admin.png"}%}
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-6">
+            <h3>Articles</h3>
+            <a class="btn btn-primary" href="/admin/post">New article</a>
+
+            {% if posts|length > 0 %}
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>title</td>
+                        <td>date</td>
+                        <td>action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in posts %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td style="white-space:nowrap">{{item.title}}</td>
+                        <td style="white-space:nowrap">{{item.date|date("Y-m-d")}}</td>
+                        <td><img class="w-100" src="/upload/{{item.image}}" alt=""></td>
+                        <td>
+                            <div class="d-flex align-content-center align-items-center">
+                                <form action="/admin/post/delete/{{item.id}}" method="POST"><button type="submit" class="btn btn-danger">Delete</button></form>
+                                <a class="btn btn-primary" href="/admin/post/{{item.id}}">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No post for the moment.</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6">
+            <h3>Authors</h3>
+            <a class="btn btn-primary" href="/admin/author">New author</a>
+            {% if authors|length > 0 %}
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>title</td>
+                        <td>action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                     {% for item in authors %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.title}}</td>
+                        <td>
+                            <div class="d-flex align-content-center align-items-center">
+                                <a class="btn btn-primary" href="/admin/author/edit/{{item.id}}">Edit</a>
+                                <form action="/admin/author/delete/{{item.id}}" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No author yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

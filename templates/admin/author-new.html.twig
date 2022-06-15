@@ -1,0 +1,27 @@
+{% extends "/base.html.twig" %}
+{% block title %}Administrator{% endblock %}
+
+{% block nav %}
+{% include "/admin/inc/nav.html.twig" %}
+{% endblock %}
+
+{% block body %}
+{% include "/frontend/inc/header.html.twig" with {"title": "Admin mode", "information": "You are an admin!", "picture": "/frontend/assets/img/home-bg.jpg"}%}
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 ">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <h3>New Author</h3>
+
+            {{ form_start(form, { 'action': "/admin/author", 'method': "post" }) }}
+            <div class="col-12 mt-3">{{ form_errors(form)}}</div>
+            <div class="col-12 mt-3">{{ form_row(form.name, {'attr': {'class': 'form-control mt-2'}}) }}</div>
+            <div class="col-12 mt-3">{{ form_row(form.title, {'attr': {'class': 'form-control mt-2'}}) }}</div>
+            <div class="col-12 mb-5">{{ form_row(form.submit, {'attr': {'class': 'btn btn-primary mt-4'}}) }}</div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

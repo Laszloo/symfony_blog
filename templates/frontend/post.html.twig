@@ -1,0 +1,22 @@
+{% extends "/base.html.twig" %}
+{% block title %}Blog|{{post.title}}{% endblock %}
+
+{% block body %}
+{% include "/frontend/inc/header.html.twig" with {"title": post.title, "information": post.text|slice(0,100)~'...', "picture": "/upload/"~post.image}%}
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{post.text|raw}}
+                <p>
+                    Posted by
+                    <strong>{{post.author.name}}</strong>
+                    on {{post.date|date("M d, Y")}}
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+
+{% endblock %}
